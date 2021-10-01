@@ -5,8 +5,8 @@ import { Navbar, Nav, NavItem } from "reactstrap";
 function NavBar({user}){
   console.log(user);
   return (
-    <>
-      <Navbar expand="md">
+    <div className="container">
+      <Navbar expand="ms">
         <NavLink exact to="/" className="navbar-brand">
           Jobly
         </NavLink>
@@ -27,7 +27,7 @@ function NavBar({user}){
           </NavItem>
         </Nav>
         ) :
-        <Nav className="ml-auto navbar">
+        <Nav className="mr-auto navbar">
           <NavItem>
             <NavLink to="/login">Login</NavLink>
           </NavItem>
@@ -37,7 +37,7 @@ function NavBar({user}){
         </Nav>
         }
       </Navbar>
-    </>
+    </div>
   )
 }
 

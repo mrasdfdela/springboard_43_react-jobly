@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { useHistory } from "react-router-dom";
-import { Button, Form, Input, Label } from "reactstrap";
+import { Button, Card, CardBody, Form, Input, Label } from "reactstrap";
 import "./Login.css";
 
 function Login() {
@@ -20,27 +20,33 @@ function Login() {
   }
 
   return (
-    <div className="Login">
+    <div>
       <h2>Log In</h2>
-      <Form className="form" onSubmit={handleSubmit}>
-        <Label for="username">Username</Label>
-        <Input
-          id="username"
-          name="username"
-          type="text"
-          placeholder="username"
-          onChange={handleChange}
-        />
-        <Label for="password">Password</Label>
-        <Input
-          id="password"
-          name="password"
-          type="password"
-          placeholder="password"
-          onChange={handleChange}
-        />
-        <Button className="btn btn-primary">Login</Button>
-      </Form>
+      <div class="d-flex justify-content-center">
+        <Card className="col-sm-4">
+          <CardBody>
+            <Form className="form" onSubmit={handleSubmit}>
+              <Label for="username">Username</Label>
+              <Input
+                id="username"
+                name="username"
+                type="text"
+                placeholder="username"
+                onChange={handleChange}
+              />
+              <Label for="password">Password</Label>
+              <Input
+                id="password"
+                name="password"
+                type="password"
+                placeholder="password"
+                onChange={handleChange}
+              />
+              <Button className="btn btn-primary">Login</Button>
+            </Form>
+          </CardBody>
+        </Card>
+      </div>
     </div>
   );
 }

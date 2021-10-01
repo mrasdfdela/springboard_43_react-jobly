@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Button, Form, Input, Label } from "reactstrap";
+import { Button, Card, CardBody, Form, Input, Label } from "reactstrap";
 import "./Signup.css";
 
 function Signup() {
@@ -20,51 +20,57 @@ function Signup() {
   };
 
   return (
-    <div className="Signup">
+    <div>
       <h2>Sign Up</h2>
-      <Form className="form" onSubmit={handleSubmit}>
-        <Label for="username">Username</Label>
-        <Input
-          id="username"
-          name="username"
-          type="text"
-          placeholder="username"
-          onChange={handleChange}
-        />
-        <Label for="password">Password</Label>
-        <Input
-          id="password"
-          name="password"
-          type="password"
-          placeholder="password"
-          onChange={handleChange}
-        />
-        <Label for="firstName">First Name</Label>
-        <Input
-          id="firstName"
-          name="firstName"
-          type="text"
-          placeholder="first name"
-          onChange={handleChange}
-        />
-        <Label for="lastName">Last Name</Label>
-        <Input
-          id="lastName"
-          name="lastName"
-          type="text"
-          placeholder="last name"
-          onChange={handleChange}
-        />
-        <Label for="email">E-mail</Label>
-        <Input
-          id="email"
-          name="email"
-          type="email"
-          placeholder="email"
-          onChange={handleChange}
-        />
-        <Button className="btn-primary">Submit</Button>
-      </Form>
+      <div class="d-flex justify-content-center">
+        <Card className="col-sm-4">
+          <CardBody>
+            <Form className="form" onSubmit={handleSubmit}>
+              <Label for="username">Username</Label>
+              <Input
+                id="username"
+                name="username"
+                type="text"
+                placeholder="username"
+                onChange={handleChange}
+              />
+              <Label for="password">Password</Label>
+              <Input
+                id="password"
+                name="password"
+                type="password"
+                placeholder="password"
+                onChange={handleChange}
+              />
+              <Label for="firstName">First Name</Label>
+              <Input
+                id="firstName"
+                name="firstName"
+                type="text"
+                placeholder="first name"
+                onChange={handleChange}
+              />
+              <Label for="lastName">Last Name</Label>
+              <Input
+                id="lastName"
+                name="lastName"
+                type="text"
+                placeholder="last name"
+                onChange={handleChange}
+              />
+              <Label for="email">E-mail</Label>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="email"
+                onChange={handleChange}
+              />
+              <Button className="btn-primary">Submit</Button>
+            </Form>
+          </CardBody>
+        </Card>
+      </div>
     </div>
   );
 }
