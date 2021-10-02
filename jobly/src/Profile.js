@@ -4,8 +4,10 @@ import { Button, Card, CardBody, Form, Input, Label } from "reactstrap";
 import "./Profile.css";
 
 function Profile({user}){
+  const history = useHistory();
   function handleSubmit(e){
     console.log(e);
+    history.push("/");
   }
 
   return (

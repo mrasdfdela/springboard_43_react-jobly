@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 import NavBar from "./NavBar";
 import Home from "./Home";
@@ -32,7 +33,7 @@ function App() {
             <Profile user={user}/>
           </Route>
           <Route exact path="/companies">
-            <Companies />
+            <Companies  id={uuidv4()}/>
           </Route>
           <Route exact path="/companies/:handle">
             <Company />

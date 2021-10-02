@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 import { Navbar, Nav, NavItem } from "reactstrap";
 
 function NavBar({user}){
-  console.log(user);
   return (
     <div className="container">
       <Navbar expand="ms">
