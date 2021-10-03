@@ -5,7 +5,7 @@ import { Card, CardBody, CardImg, CardText, CardTitle } from "reactstrap";
 function CompanyListing({company}) {
   let companyUrl = `/companies/${company.handle}`;
   return (
-    <Link exact to={companyUrl}>
+    <Link to={companyUrl}>
       <Card>
         <CardBody>
           <CardTitle tag="h5">{company.name}</CardTitle>

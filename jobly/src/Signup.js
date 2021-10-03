@@ -9,14 +9,12 @@ function Signup() {
   const history = useHistory;
 
   const handleSubmit = () => {
-    console.log("Signing up...");
     history.push("/");
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    console.log(formData);
   };
 
   return (

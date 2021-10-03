@@ -6,39 +6,39 @@ import CompanyListing from "./CompanyListing";
 import JoblyApi from "./api.js";
 
 function Companies() {
-  const [displayCompanies, setDisplayCompanies] = useState([]);
+  // const [displayCompanies, setDisplayCompanies] = useState([]);
   const [searchStr, setSearchStr] = useState('');
   
+  // let companies = [];
   // async function getAllCompanies(){
   //   let allCompanies = await JoblyApi.getCompanies();
   //   return allCompanies
   // }
-  // const compPromise = getAllCompanies();
-  // console.log(companies);
+  // getAllCompanies().then((success, err) => {
+  //   console.log(success);
+  //   companies = success;
+  //   setDisplayCompanies(companies);
+  // });
   
   const [companies, setCompanies] = useState([]);
   useEffect( ()=>{
     async function getAllCompanies(){
-      let allCompanies = await JoblyApi.getCompanies();
+      let allCompanies = await JoblyApi.getCompanies(searchStr);
       setCompanies(allCompanies);
-      setDisplayCompanies(allCompanies);
+      // setDisplayCompanies(allCompanies);
+      return allCompanies;
     }
     getAllCompanies();
-  }, []);
-
-  useEffect( async ()=>{
-    
-  },[]);
+  }, [searchStr]);
 
   function handleChange(e){
-    const { value } = e.target;
-    setSearchStr(value);
+    // const { value } = e.target;
+    // setSearchStr(value);
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    const filteredList = companies.filter( (c) => c.handle.includes(searchStr));
-    setDisplayCompanies(filteredList);
+    setSearchStr(e.target[0].value);
   };
 
   return (
@@ -50,7 +50,7 @@ function Companies() {
               className="form-control"
               name="searchTerm"
               type="text"
-              value={searchStr}
+              // value={searchStr}
               placeholder="Enter search term"
               onChange={handleChange}
             />
@@ -60,7 +60,7 @@ function Companies() {
           </Form>
         </div>
       </div>
-      {displayCompanies.map((c) => {
+      {companies.map((c) => {
         return (
           <div className="form-inline d-flex justify-content-center">
             <div className="col-sm-6">

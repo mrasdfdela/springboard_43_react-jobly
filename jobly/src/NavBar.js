@@ -10,7 +10,7 @@ function NavBar({user}){
           Jobly
         </NavLink>
 
-        { user.firstName ? (
+        { user.firstName !== undefined ? (
         <Nav className="ml-auto navbar">
           <NavItem>
             <NavLink to="/companies">Companies</NavLink>

@@ -9,14 +9,12 @@ function Login() {
   const history = useHistory;
   
   const handleSubmit = ()=>{
-    console.log("Logging in...")
     history.push("/");
   }
 
   const handleChange = (e)=> {
     const {name,value} = e.target;
     setFormData({...formData, [name]: value});
-    console.log(formData);
   }
 
   return (
