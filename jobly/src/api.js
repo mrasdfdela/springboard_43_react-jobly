@@ -34,14 +34,17 @@ class JoblyApi {
 
   // Individual API routes
 
-  /** Jobly Authenticate **/
+  /** Authenticate User **/
   static async authenticateUser(username, password) {
+    
+      console.log(username);
+      console.log(password);
     const userCreds = { username: username, password: password };
     let res = await this.request(`auth/token`, userCreds, "post");
     this.token = res.token;
     return this.token;
   }
-  /** Jobly Register **/
+  /** Register User **/
   static async registerUser({username,firstName,lastName,password,email}){
     const userInfo = { 
       username: username, 
@@ -53,6 +56,29 @@ class JoblyApi {
     let res = await this.request(`auth/register`,userInfo,"post");
     this.token = res.token;
     return this.token;
+  }
+  /** Get User Details **/
+  static async getUser(username) {
+    let res = await this.request(`users/${username}`);
+    return res.user;
+  }
+  /** Patch User Details **/
+  static async patchUser(formData) {
+    try {
+      const token = await this.authenticateUser(formData.username, formData.password);
+      if (typeof token === "string") {
+        const userInfo = {
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          password: formData.password
+        }
+        let res = await this.request(`users/${formData.username}`, userInfo, "patch");
+        return res.user;
+      }
+    } catch(err) {
+      return err; 
+    }
   }
 
   /** Get details on a company by handle. */

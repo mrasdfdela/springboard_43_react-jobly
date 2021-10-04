@@ -24,6 +24,7 @@ function App() {
     const token = localStorage.getItem("currentToken");
     const user = localStorage.getItem("currentUser");
     if (token) {
+      JoblyApi.token = token;
       setCurrentUser(user);
       setCurrentToken(token);
     }
@@ -68,12 +69,20 @@ function App() {
     setCurrentToken(JoblyApi.token);
   }
 
+  function getUserDetails() {
+    return JoblyApi.getUser(currentUser);
+  }
+  function patchUserDetails(formData) {
+    return JoblyApi.patchUser(formData);
+  }
+
   return (
-    <UserContext.Provider 
-      value={ {currentUser:currentUser, currentToken:currentToken }}>
+    <UserContext.Provider
+      value={{ currentUser: currentUser, currentToken: currentToken }}
+    >
       <div className="App">
         <BrowserRouter>
-          <NavBar userLogout={userLogout}/>
+          <NavBar userLogout={userLogout} />
           <Switch>
             <Route exact path="/">
               <Home />
@@ -85,7 +94,7 @@ function App() {
               <Signup userSignUp={userSignUp} />
             </Route>
             <Route exact path="/profile">
-              <Profile />
+              <Profile getUserDetails={getUserDetails} patchUserDetails={patchUserDetails} />
             </Route>
             <Route exact path="/companies">
               <Companies />
