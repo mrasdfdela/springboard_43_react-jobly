@@ -1,14 +1,22 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Button, Card, CardBody, Form, Input, Label } from "reactstrap";
+import { Card, CardBody, Form, Input, Label } from "reactstrap";
 import "./Signup.css";
 
-function Signup() {
-  const INITIAL_STATE = { username: "", password: "", firstName:"", lastName:"",email:"" };
+function Signup({userSignUp}) {
+  const INITIAL_STATE = { 
+    username: "", 
+    password: "", 
+    firstName:"", 
+    lastName:"",
+    email:"" 
+  };
   const [formData, setFormData] = useState(INITIAL_STATE);
-  const history = useHistory;
+  const history = useHistory();
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    userSignUp(formData);
     history.push("/");
   };
 
@@ -64,7 +72,7 @@ function Signup() {
                 placeholder="email"
                 onChange={handleChange}
               />
-              <Button className="btn-primary">Submit</Button>
+              <button className="btn btn-primary">Submit</button>
             </Form>
           </CardBody>
         </Card>
