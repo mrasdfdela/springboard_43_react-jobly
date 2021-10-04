@@ -2,8 +2,6 @@
   text-align: center;
 }
 
-/* Form {
-  max-width: 20em;
-  min-width: 10em;
-  margin: auto;
-} */
+.btn {
+  margin: .25em;
+}

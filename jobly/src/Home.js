@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 // import { Button } from "reactstrap";
 
 function Home(){
-  const currentUser = useContext(UserContext);
+  const {currentUser} = useContext(UserContext);
   return (
     <>
       <h3>Jobly</h3>

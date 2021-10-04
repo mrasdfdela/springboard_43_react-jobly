@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { Redirect } from "react-router-dom";
 import { Form, Input } from "reactstrap";
 import { v4 as uuidv4 } from "uuid";
 
+import UserContext from "./UserContext";
 import Job from "./Job";
 import JoblyApi from "./api";
 
 function Jobs() {
+  const { currentUser } = useContext(UserContext);
   const [searchStr, setSearchStr] = useState("");
   const [jobs, setJobs] = useState([]);
   const [displayJobs, setDisplayJobs] = useState([]);
@@ -33,35 +36,41 @@ function Jobs() {
   }
 
   return (
-    <div>
-      <div className="form-inline d-flex justify-content-center">
-        <div className="col-sm-8 ">
-          <Form className="input-group" onSubmit={handleSubmit}>
-            <Input
-              className="form-control"
-              name="searchTerm"
-              type="text"
-              value={searchStr}
-              placeholder="Enter search term"
-              onChange={handleChange}
-            />
-            <div className="input-group-btn">
-              <button className="btn btn-primary">Search</button>
+    <>
+      { currentUser ? (
+        <div>
+          <div className="form-inline d-flex justify-content-center">
+            <div className="col-sm-8 ">
+              <Form className="input-group" onSubmit={handleSubmit}>
+                <Input
+                  className="form-control"
+                  name="searchTerm"
+                  type="text"
+                  value={searchStr}
+                  placeholder="Enter search term"
+                  onChange={handleChange}
+                />
+                <div className="input-group-btn">
+                  <button className="btn btn-primary">Search</button>
+                </div>
+              </Form>
             </div>
-          </Form>
-        </div>
-      </div>
-      { displayJobs.map((j) => {
-          return (
-            <div className="form-inline d-flex justify-content-center">
-              <div className="col-sm-8">
-                <Job jobDetails={j} key={uuidv4()} />
+          </div>
+          {displayJobs.map((j) => {
+            return (
+              <div className="form-inline d-flex justify-content-center">
+                <div className="col-sm-8">
+                  <Job jobDetails={j} key={uuidv4()} />
+                </div>
               </div>
-            </div>
-          );
-        })
+            );
+          })}
+        </div>
+        ) : (
+          <Redirect to="/login" />
+        )
       }
-    </div>
+    </>
   );
 }
 

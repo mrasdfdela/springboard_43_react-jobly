@@ -12,7 +12,7 @@ function Profile(){
   return (
     <div>
       <h2>Profile</h2>
-      <div class="d-flex justify-content-center">
+      <div className="d-flex justify-content-center">
         <Card className="col-sm-4">
           <CardBody>
             <Form onSubmit={handleSubmit}>

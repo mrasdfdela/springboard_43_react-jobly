@@ -1,12 +1,14 @@
-import React, {useEffect, useState} from "react";
-import { useParams } from 'react-router-dom'
+import React, {useContext, useEffect, useState} from "react";
+import { Redirect, useParams } from "react-router-dom";
 
+import UserContext from "./UserContext";
 import Job from './Job';
 import JoblyApi from "./api";
 
 function Company() {
-  const {handle} = useParams();
-  const [company, setCompany] = useState();
+  const { currentUser } = useContext(UserContext);
+  const { handle } = useParams();
+  const [company, setCompany] = useState({jobs:[]});
 
   useEffect( ()=> {
     async function getCompanyDetails(){
@@ -17,14 +19,22 @@ function Company() {
   },[handle])
 
   return (
-    <div>
-      <h1>{company.name}</h1>
-      <p>{company.description}</p>
-       { company.jobs.map( j=>{
-          return <Job jobDetails={j} />;
-        })
+    <>
+      { currentUser ? (
+        <div>
+          <h1>{company.name}</h1>
+          <p>{company.description}</p>
+          { company.jobs.map( j=>{
+              return <Job jobDetails={j} />;
+            })
+          }
+        </div>
+        ) : (
+          <Redirect to='/login' />
+        )
       }
-    </div>
+      
+    </>
   );
 }
 

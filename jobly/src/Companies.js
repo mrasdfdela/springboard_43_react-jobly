@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import { Form, Input } from "reactstrap";
 import { v4 as uuidv4 } from 'uuid';
 
+import UserContext from "./UserContext";
 import CompanyListing from "./CompanyListing";
 import JoblyApi from "./api.js";
 
 function Companies() {
   // const [displayCompanies, setDisplayCompanies] = useState([]);
   const [searchStr, setSearchStr] = useState('');
+  const { currentUser } = useContext(UserContext);
   
   // let companies = [];
   // async function getAllCompanies(){
@@ -42,34 +45,41 @@ function Companies() {
   };
 
   return (
-    <div>
-      <div className="form-inline d-flex justify-content-center">
-        <div className="col-sm-4 ">
-          <Form className="input-group" onSubmit={handleSubmit}>
-            <Input
-              className="form-control"
-              name="searchTerm"
-              type="text"
-              // value={searchStr}
-              placeholder="Enter search term"
-              onChange={handleChange}
-            />
-            <div className="input-group-btn">
-              <button className="btn btn-primary">Search</button>
-            </div>
-          </Form>
-        </div>
-      </div>
-      {companies.map((c) => {
-        return (
+    <>
+      { currentUser ? (
+        <div>
           <div className="form-inline d-flex justify-content-center">
-            <div className="col-sm-6">
-              <CompanyListing company={c} key={uuidv4()} />
+            <div className="col-sm-4 ">
+              <Form className="input-group" onSubmit={handleSubmit}>
+                <Input
+                  className="form-control"
+                  name="searchTerm"
+                  type="text"
+                  // value={searchStr}
+                  placeholder="Enter search term"
+                  onChange={handleChange}
+                />
+                <div className="input-group-btn">
+                  <button className="btn btn-primary">Search</button>
+                </div>
+              </Form>
             </div>
           </div>
-        );
-      })}
-    </div>
+          {companies.map((c) => {
+            return (
+              <div className="form-inline d-flex justify-content-center">
+                <div className="col-sm-6">
+                  <CompanyListing company={c} key={uuidv4()} />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        <Redirect to="/login" />
+      )
+      }
+    </>
   );
 }
 

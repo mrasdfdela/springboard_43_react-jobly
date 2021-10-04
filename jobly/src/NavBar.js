@@ -5,7 +5,7 @@ import { Navbar, Nav, NavItem } from "reactstrap";
 import "./NavBar.css";
 
 function NavBar({userLogout}){
-  const currentUser = useContext(UserContext);
+  const {currentUser} = useContext(UserContext);
   return (
     <div className="container">
       <Navbar expand="ms">

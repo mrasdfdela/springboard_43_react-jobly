@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import { BrowserRouter, Route, Switch, useHistory } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import UserContext from "./UserContext";
 import NavBar from "./NavBar";
@@ -17,37 +17,60 @@ import JoblyApi from "./api.js";
 function App() {
   const [currentUser,setCurrentUser] = useState(null);
   const [currentToken,setCurrentToken] = useState(null);
-  const history = useHistory();
+  // const history = useHistory();
+
+  useEffect( ()=>{
+    // on startup/refresh, save localStorage token & username to app states
+    const token = localStorage.getItem("currentToken");
+    const user = localStorage.getItem("currentUser");
+    if (token) {
+      setCurrentUser(user);
+      setCurrentToken(token);
+    }
+  },[]);
+
+  useEffect( ()=>{
+    // when a currentToken is updated, the currentUser and currentToken are saved to localStorage
+    if (currentUser) {
+      localStorage.setItem('currentUser',currentUser);
+      localStorage.setItem('currentToken',currentToken);
+    } else {
+      localStorage.removeItem("currentUser");
+      localStorage.removeItem("currentToken");
+    }
+  },[currentToken])
 
   async function userSignUp(formData) {
-    // try {
+    try {
       const newToken = await JoblyApi.registerUser(formData);
-      setCurrentToken(newToken);
       setCurrentUser(formData.username);
-    // } catch {
-    //   console.log('...user not registered...')
-    // }
+      setCurrentToken(newToken);
+      // history.push("/");
+    } catch {
+      console.log('...user not registered...')
+    }
   }
 
   async function userLogin(username,password) {
-    // try {
+    try {
       const newToken = await JoblyApi.authenticateUser(username, password);
-      setCurrentToken(newToken);
       setCurrentUser(username);
-      // sessionStorage.setItem("username", username);
-    // } catch {
-      // console.log("...user not stored in session...")
-    // }
+      setCurrentToken(newToken);
+      // history.push("/");
+    } catch {
+      console.log("...user not stored in session...")
+    }
   }
 
   function userLogout(){
+    setCurrentUser(null);
     JoblyApi.token = null;
     setCurrentToken(JoblyApi.token);
-    setCurrentUser(null);
   }
 
   return (
-    <UserContext.Provider value={currentUser}>
+    <UserContext.Provider 
+      value={ {currentUser:currentUser, currentToken:currentToken }}>
       <div className="App">
         <BrowserRouter>
           <NavBar userLogout={userLogout}/>

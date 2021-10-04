@@ -6,7 +6,7 @@ import { Card, CardBody, Form, Input, Label } from "reactstrap";
 import "./Login.css";
 
 function Login({userLogin}) {
-  const currentUser = useContext(UserContext);
+  const {currentUser} = useContext(UserContext);
   const INITIAL_STATE = { username: "", password: "" }
   const [ formData, setFormData ] = useState(INITIAL_STATE);
   
@@ -36,6 +36,7 @@ function Login({userLogin}) {
                     name="username"
                     type="text"
                     placeholder="username"
+                    autoComplete="off"
                     onChange={handleChange}
                   />
                   <Label for="password">Password</Label>
@@ -44,6 +45,7 @@ function Login({userLogin}) {
                     name="password"
                     type="password"
                     placeholder="password"
+                    autoComplete="off"
                     onChange={handleChange}
                   />
                   <button className="btn btn-primary">Login</button>
